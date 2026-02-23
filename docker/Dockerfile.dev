@@ -1,0 +1,33 @@
+# ============================================
+# Development Dockerfile
+# Includes Jupyter, debugging tools, and full dataset support
+# ============================================
+FROM nvcr.io/nvidia/pytorch:23.08-py3
+
+LABEL maintainer="Vehicle Tracking Project"
+LABEL description="Development environment with Jupyter and debugging tools"
+
+WORKDIR /app
+
+# System dependencies
+RUN apt-get update && apt-get install -y \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    ffmpeg \
+    git \
+    vim \
+    && rm -rf /var/lib/apt/lists/*
+
+# Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install jupyter jupyterlab ipywidgets
+
+# Copy full project
+COPY . .
+
+# Expose Jupyter port
+EXPOSE 8888
+
+# Development entrypoint
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--allow-root"]

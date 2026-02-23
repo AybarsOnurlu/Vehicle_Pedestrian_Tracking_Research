@@ -1,0 +1,54 @@
+# ============================================
+# Python Dependencies
+# Vehicle & Pedestrian Tracking Project
+# ============================================
+# Pin exact versions to prevent CUDA/dependency mismatches
+
+# --- Core Deep Learning ---
+torch>=2.0.0
+torchvision>=0.15.0
+ultralytics>=8.0.200            # YOLOv8 framework
+
+# --- Computer Vision ---
+opencv-python>=4.8.0
+opencv-contrib-python>=4.8.0
+
+# --- Tracking & Math ---
+filterpy>=1.4.5                 # Kalman Filter implementation
+scipy>=1.11.0                   # Hungarian algorithm (linear_sum_assignment)
+lap>=0.4.0                      # Linear Assignment Problem (faster alternative)
+
+# --- Data Augmentation ---
+albumentations>=1.3.1           # Advanced image augmentation
+imgaug>=0.4.0                   # Additional augmentation utilities
+
+# --- Dataset Processing ---
+pycocotools>=2.0.7              # COCO format handling
+pandas>=2.0.0                   # Data manipulation for annotations
+tqdm>=4.65.0                    # Progress bars
+
+# --- Experiment Tracking ---
+wandb>=0.15.0                   # Weights & Biases integration
+# mlflow>=2.5.0                 # Alternative: MLflow (uncomment if preferred)
+
+# --- Evaluation ---
+# trackeval                     # Via: pip install git+https://github.com/JonathonLuiten/TrackEval.git
+
+# --- Configuration ---
+pyyaml>=6.0.1                   # YAML config parsing
+python-dotenv>=1.0.0            # Environment variable management
+
+# --- Utilities ---
+numpy>=1.24.0
+Pillow>=10.0.0
+matplotlib>=3.7.0               # Visualization & plotting
+
+# --- Development ---
+pytest>=7.4.0                   # Unit testing
+black>=23.0.0                   # Code formatting
+flake8>=6.0.0                   # Linting
+
+# --- TensorRT (install separately based on CUDA version) ---
+# tensorrt>=8.6.0               # Via NVIDIA PyPI index
+# onnx>=1.14.0                  # ONNX export support
+# onnxruntime-gpu>=1.15.0       # ONNX Runtime with GPU

@@ -1,0 +1,68 @@
+# ============================================
+# Dataset Configuration
+# Vehicle & Pedestrian Tracking Project
+# ============================================
+
+# YOLO-formatted dataset paths
+path: ./data/processed
+train: train/images
+val: val/images
+test: test/images
+
+# Class definitions
+nc: 6  # Number of classes
+names:
+  0: person
+  1: car
+  2: truck
+  3: bus
+  4: motorcycle
+  5: bicycle
+
+# Source dataset mappings (for annotation conversion)
+source_datasets:
+  kitti:
+    raw_path: ./data/raw/kitti
+    class_mapping:
+      Car: 1
+      Pedestrian: 0
+      Cyclist: 5
+      Truck: 2
+      Van: 1
+    annotation_format: kitti_txt
+
+  mot17:
+    raw_path: ./data/raw/mot17
+    class_mapping:
+      1: 0   # Pedestrian
+      2: 0   # Person on vehicle
+      3: 1   # Car
+      4: 5   # Bicycle
+      7: 1   # Static car (mapped to car)
+    annotation_format: mot_csv
+
+  bdd100k:
+    raw_path: ./data/raw/bdd100k
+    class_mapping:
+      person: 0
+      car: 1
+      truck: 2
+      bus: 3
+      motor: 4
+      bike: 5
+      rider: 0  # Mapped to person
+    annotation_format: coco_json
+
+  waymo:
+    raw_path: ./data/raw/waymo
+    class_mapping:
+      TYPE_VEHICLE: 1
+      TYPE_PEDESTRIAN: 0
+      TYPE_CYCLIST: 5
+    annotation_format: tfrecord
+
+# Dataset split ratios (for custom data)
+split_ratios:
+  train: 0.8
+  val: 0.15
+  test: 0.05

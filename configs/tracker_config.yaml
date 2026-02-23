@@ -1,0 +1,78 @@
+# ============================================
+# Tracker Configuration
+# Vehicle & Pedestrian Tracking Project
+# ============================================
+
+# Active tracker selection
+# Options: bytetrack, deepsort, sort
+active_tracker: bytetrack
+
+# ---- ByteTrack Parameters ----
+bytetrack:
+  # First-pass association threshold (high-confidence detections)
+  track_high_thresh: 0.6
+  # Second-pass association threshold (low-confidence recovery)
+  track_low_thresh: 0.1
+  # New track initialization threshold
+  new_track_thresh: 0.7
+  # IoU threshold for Hungarian matching
+  match_thresh: 0.8
+  # Frames to keep lost tracks alive before deletion
+  track_buffer: 30
+  # Minimum track length to consider valid (frames)
+  min_track_length: 3
+
+# ---- DeepSORT Parameters ----
+deepsort:
+  # Re-ID model checkpoint
+  reid_model_path: models/pretrained/reid_ckpt.pth
+  # Maximum cosine distance for appearance matching
+  max_cosine_distance: 0.3
+  # Maximum Mahalanobis distance for motion matching
+  max_mahalanobis_distance: 9.4877  # chi2inv95(4)
+  # Cost matrix weighting: lambda * appearance + (1 - lambda) * motion
+  lambda_weight: 0.98
+  # Feature gallery size per track
+  nn_budget: 100
+  # Maximum age of lost tracks (frames)
+  max_age: 70
+  # Minimum consecutive hits to confirm track
+  n_init: 3
+  # NMS class-agnostic for overlapping detections
+  nms_max_overlap: 1.0
+
+# ---- SORT (Baseline) Parameters ----
+sort:
+  # Maximum age of lost tracks (frames)
+  max_age: 1
+  # Minimum hits to confirm track
+  min_hits: 3
+  # Minimum IoU for matching
+  iou_threshold: 0.3
+
+# ---- Kalman Filter Settings ----
+kalman_filter:
+  # State dimension: [cx, cy, aspect_ratio, height, vx, vy, va, vh]
+  state_dim: 8
+  # Measurement dimension: [cx, cy, aspect_ratio, height]
+  measurement_dim: 4
+  # Process noise standard deviations
+  process_noise:
+    position: 1.0       # std_weight for position
+    velocity: 1/160      # std_weight for velocity
+  # Measurement noise standard deviations
+  measurement_noise:
+    position: 1.0
+    velocity: 1/160
+  # Use NSA (Noise Scale Adaptive) Kalman Filter for nonlinear motion
+  use_nsa: false
+
+# ---- General Tracking Settings ----
+general:
+  # Minimum detection confidence to enter tracker
+  min_confidence: 0.1
+  # Classes to track (indices from dataset.yaml)
+  target_classes: [0, 1, 2, 3, 4, 5]
+  # Enable trajectory smoothing (EMA on bbox coordinates)
+  smooth_trajectories: true
+  ema_alpha: 0.9

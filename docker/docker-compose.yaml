@@ -1,0 +1,32 @@
+# ============================================
+# Docker Compose - Multi-service orchestration
+# ============================================
+version: '3.8'
+
+services:
+  # Production tracking pipeline
+  tracker:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - ../data:/app/data:ro
+      - ../models:/app/models:ro
+      - ../outputs:/app/outputs
+    command: ["--source", "/app/data/raw/sample.mp4", "--tracker", "bytetrack", "--export-json"]
+
+  # Development environment with Jupyter
+  dev:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dev
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    ports:
+      - "8888:8888"
+    volumes:
+      - ..:/app

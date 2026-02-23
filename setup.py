@@ -22,7 +22,7 @@ setup(
     description="Real-time vehicle & pedestrian detection and multi-object tracking system",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/<username>/vehicle-pedestrian-tracking",
+    url="https://github.com/AybarsOnurlu/Vehicle_Pedestrian_Tracking_Research",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     python_requires=">=3.9",

@@ -29,11 +29,8 @@ models/pretrained/*.pt
 models/pretrained/*.pth
 models/trained/*.pt
 models/trained/*.pth
-models/exported/*.engine
-models/exported/*.onnx
 !models/pretrained/.gitkeep
 !models/trained/.gitkeep
-!models/exported/.gitkeep
 
 # --- Datasets (large, download separately) ---
 data/raw/*
@@ -62,10 +59,6 @@ outputs/metrics/*
 # --- Jupyter ---
 .ipynb_checkpoints/
 *.ipynb_checkpoints
-
-# --- Experiment Tracking ---
-wandb/
-mlruns/
 
 # --- OS ---
 .DS_Store

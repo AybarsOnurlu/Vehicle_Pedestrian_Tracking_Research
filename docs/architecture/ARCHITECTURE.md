@@ -43,7 +43,7 @@ The system follows a **Pipe-and-Filter** architecture where data flows synchrono
 |----------|--------|
 | **Input** | Preprocessed GPU tensors |
 | **Output** | Raw bounding boxes + confidence scores + class logits |
-| **Key Tech** | Ultralytics YOLOv8, TensorRT engine |
+| **Key Tech** | Ultralytics YOLOv8 |
 | **Responsibilities** | Forward pass execution, multi-scale feature extraction |
 
 ### 3.4 Post-Processing Node
@@ -177,24 +177,7 @@ Evaluation Suite
 
 ---
 
-## 8. Deployment Strategy
-
-```
-Development          Optimization           Production
-┌──────────┐        ┌──────────────┐       ┌──────────────┐
-│ PyTorch  │  ────▶ │  TensorRT    │ ────▶ │  Docker      │
-│ .pt model│        │  FP16/INT8   │       │  Container   │
-│ Training │        │  .engine     │       │  Edge/Cloud  │
-└──────────┘        └──────────────┘       └──────────────┘
-     │                     │                      │
-  WandB Logging      5x Speedup            Reproducible
-  PR Curves          Layer Fusion           CUDA Isolated
-  HP Tuning          Kernel Tuning          CI/CD Ready
-```
-
----
-
-## 9. Key Design Decisions
+## 8. Key Design Decisions
 
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
@@ -202,7 +185,5 @@ Development          Optimization           Production
 | Primary tracker | ByteTrack | Occlusion robustness without Re-ID computational cost |
 | Motion model | Linear Kalman Filter | Sufficient for road-scene constant-velocity assumption |
 | Annotation format | YOLO TXT (normalized) | Native compatibility with Ultralytics training pipeline |
-| Model acceleration | TensorRT FP16 | Up to 5x speedup; negligible mAP loss |
 | Config management | YAML files | Human-readable; Git-trackable; no code changes needed |
 | CLI interface | argparse | Standard Python; no external dependencies |
-| Containerization | Docker + NVIDIA toolkit | Reproducible CUDA environment across machines |
